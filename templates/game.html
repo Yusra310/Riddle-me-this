@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riddle Me This - Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Riddle Me This</h1>
+            <p class="subtitle">A Game of Wit and Wisdom</p>
+        </header>
+        
+        <main>
+            <div class="game-card">
+                <div class="game-info">
+                    <p class="player-info">Player: <span class="highlight">{{ player_name }}</span></p>
+                    <p class="riddle-counter">Riddle <span class="highlight">{{ current_riddle }}</span> of <span class="highlight">{{ total_riddles }}</span></p>
+                </div>
+                
+                <div class="riddle-container">
+                    <h2>Riddle:</h2>
+                    <p class="riddle-text">{{ riddle }}</p>
+                    
+                    {% if show_hint %}
+                    <div class="hint-box">
+                        <h3>Hint:</h3>
+                        <p>{{ hint }}</p>
+                    </div>
+                    {% endif %}
+                    
+                    <form action="{{ url_for('submit_answer') }}" method="post" class="answer-form">
+                        <div class="form-group">
+                            <label for="answer">Your Answer:</label>
+                            <input type="text" id="answer" name="answer" required autofocus>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                    
+                    <div class="game-controls">
+                        <a href="{{ url_for('skip_riddle') }}" class="btn btn-secondary">Skip This Riddle</a>
+                        <a href="{{ url_for('quit_game') }}" class="btn btn-danger">Quit Game</a>
+                    </div>
+                </div>
+                
+                <div class="game-stats">
+                    <p>Current Score: <span class="highlight">{{ score }}</span></p>
+                    <p>Attempts: <span class="highlight">{{ attempts }}</span></p>
+                    <div id="timer" class="timer">00:00</div>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>&copy; 2025 Riddle Me This</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Timer functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            let startTime = new Date().getTime();
+            let timerElement = document.getElementById('timer');
+            
+            function updateTimer() {
+                let currentTime = new Date().getTime();
+                let elapsedTime = Math.floor((currentTime - startTime) / 1000);
+                
+                let minutes = Math.floor(elapsedTime / 60);
+                let seconds = elapsedTime % 60;
+                
+                minutes = minutes < 10 ? '0' + minutes : minutes;
+                seconds = seconds < 10 ? '0' + seconds : seconds;
+                
+                timerElement.textContent = minutes + ':' + seconds;
+            }
+            
+            // Update timer every second
+            setInterval(updateTimer, 1000);
+        });
+    </script>
+</body>
+</html>

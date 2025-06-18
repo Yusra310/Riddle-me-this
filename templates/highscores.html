@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riddle Me This - High Scores</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Riddle Me This</h1>
+            <p class="subtitle">A Game of Wit and Wisdom</p>
+        </header>
+        
+        <main>
+            <div class="highscores-card">
+                <h2>High Scores</h2>
+                
+                {% if high_scores %}
+                <div class="high-scores">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Name</th>
+                                <th>Score</th>
+                                <th>Time (seconds)</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for score in high_scores %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ score.name }}</td>
+                                <td>{{ score.score }}</td>
+                                <td>{{ score.time }}</td>
+                                <td>{{ score.date }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <p class="no-scores">No high scores yet! Be the first to play!</p>
+                {% endif %}
+                
+                <div class="links">
+                    <a href="{{ url_for('index') }}" class="btn btn-primary">Back to Main Menu</a>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>&copy; 2025 Riddle Me This</p>
+        </footer>
+    </div>
+</body>
+</html>

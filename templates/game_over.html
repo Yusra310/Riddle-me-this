@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riddle Me This - Game Over</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Riddle Me This</h1>
+            <p class="subtitle">A Game of Wit and Wisdom</p>
+        </header>
+        
+        <main>
+            <div class="game-over-card">
+                <h2>Game Over!</h2>
+                
+                <div class="results">
+                    <p>Player: <span class="highlight">{{ player_name }}</span></p>
+                    <p>Final Score: <span class="highlight">{{ score }}</span> out of <span class="highlight">{{ total_riddles }}</span></p>
+                    <p>Total Time: <span class="highlight">{{ total_time }}</span> seconds</p>
+                    
+                    {% if score == total_riddles %}
+                    <p class="performance">Perfect score! You're a riddle master!</p>
+                    {% elif score >= total_riddles * 0.7 %}
+                    <p class="performance">Great job! You have an excellent mind for riddles!</p>
+                    {% elif score >= total_riddles * 0.5 %}
+                    <p class="performance">Not bad! You solved half or more of the riddles!</p>
+                    {% else %}
+                    <p class="performance">Better luck next time! Riddles can be tricky.</p>
+                    {% endif %}
+                </div>
+                
+                <div class="high-scores">
+                    <h3>High Scores</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Name</th>
+                                <th>Score</th>
+                                <th>Time</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for score in high_scores %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ score.name }}</td>
+                                <td>{{ score.score }}</td>
+                                <td>{{ score.time }}</td>
+                                <td>{{ score.date }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="game-controls">
+                    <a href="{{ url_for('restart') }}" class="btn btn-primary">Play Again</a>
+                    <a href="{{ url_for('index') }}" class="btn btn-secondary">Main Menu</a>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>&copy; 2025 Riddle Me This</p>
+        </footer>
+    </div>
+</body>
+</html>

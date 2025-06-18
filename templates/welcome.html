@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riddle Me This - Welcome</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Riddle Me This</h1>
+            <p class="subtitle">A Game of Wit and Wisdom</p>
+        </header>
+        
+        <main>
+            <div class="welcome-card">
+                <h2>Welcome to Riddle Me This!</h2>
+                <p>Test your problem-solving skills with a series of challenging riddles.</p>
+                
+                <div class="instructions">
+                    <h3>How to Play:</h3>
+                    <ul>
+                        <li>You will be presented with a series of riddles</li>
+                        <li>Type your answer and click "Submit"</li>
+                        <li>Each correct answer earns you 1 point</li>
+                        <li>After 2 wrong attempts, you'll get a hint</li>
+                        <li>Try to solve all riddles as quickly as possible</li>
+                    </ul>
+                </div>
+                
+                <form action="{{ url_for('start_game') }}" method="post" class="start-form">
+                    <div class="form-group">
+                        <label for="player_name">Enter Your Name:</label>
+                        <input type="text" id="player_name" name="player_name" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Start Game</button>
+                </form>
+                
+                <div class="links">
+                    <a href="{{ url_for('highscores') }}" class="btn btn-secondary">View High Scores</a>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>&copy; 2025 Riddle Me This</p>
+        </footer>
+    </div>
+</body>
+</html>
